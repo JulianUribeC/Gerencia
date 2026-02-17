@@ -227,6 +227,8 @@ export const projects: Project[] = [
       sessionFrequency: 0, growthEfficiency: 0, startupHealthScore: 55,
       platformRiskIndex: 45, operationalLeverage: 0, portfolioPerformanceIndex: 0,
     },
+    fixedCosts: [],
+    variableCosts: [],
   },
   {
     id: 'p2',
@@ -260,6 +262,8 @@ export const projects: Project[] = [
       sessionFrequency: 4.2, growthEfficiency: 0.23, startupHealthScore: 78,
       platformRiskIndex: 72, operationalLeverage: 1.4, portfolioPerformanceIndex: 72,
     },
+    fixedCosts: [],
+    variableCosts: [],
   },
   {
     id: 'p3',
@@ -293,6 +297,8 @@ export const projects: Project[] = [
       sessionFrequency: 0, growthEfficiency: 0, startupHealthScore: 48,
       platformRiskIndex: 38, operationalLeverage: 0, portfolioPerformanceIndex: 0,
     },
+    fixedCosts: [],
+    variableCosts: [],
   },
   {
     id: 'p4',
@@ -326,6 +332,8 @@ export const projects: Project[] = [
       sessionFrequency: 3.8, growthEfficiency: 0.63, startupHealthScore: 82,
       platformRiskIndex: 55, operationalLeverage: 2.3, portfolioPerformanceIndex: 85,
     },
+    fixedCosts: [],
+    variableCosts: [],
   },
   {
     id: 'p5',
@@ -359,6 +367,8 @@ export const projects: Project[] = [
       sessionFrequency: 0, growthEfficiency: 0, startupHealthScore: 42,
       platformRiskIndex: 60, operationalLeverage: 0, portfolioPerformanceIndex: 0,
     },
+    fixedCosts: [],
+    variableCosts: [],
   },
   {
     id: 'p6',
@@ -392,6 +402,8 @@ export const projects: Project[] = [
       sessionFrequency: 0, growthEfficiency: 0, startupHealthScore: 30,
       platformRiskIndex: 0, operationalLeverage: 0, portfolioPerformanceIndex: 0,
     },
+    fixedCosts: [],
+    variableCosts: [],
   },
   {
     id: 'p7',
@@ -425,6 +437,8 @@ export const projects: Project[] = [
       sessionFrequency: 6.5, growthEfficiency: 3.6, startupHealthScore: 71,
       platformRiskIndex: 82, operationalLeverage: 2.9, portfolioPerformanceIndex: 68,
     },
+    fixedCosts: [],
+    variableCosts: [],
   },
   {
     id: 'p8',
@@ -458,6 +472,8 @@ export const projects: Project[] = [
       sessionFrequency: 0, growthEfficiency: 0, startupHealthScore: 25,
       platformRiskIndex: 0, operationalLeverage: 0, portfolioPerformanceIndex: 0,
     },
+    fixedCosts: [],
+    variableCosts: [],
   },
 ];
 

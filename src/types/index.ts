@@ -34,6 +34,12 @@ export interface Milestone {
   completed: boolean;
 }
 
+export interface CostEntry {
+  id: string;
+  label: string;
+  amount: number;
+}
+
 // ─── Control Tower Metrics ───────────────────────────────────
 export type MetricCategory =
   | 'supervivencia'
@@ -171,6 +177,8 @@ export interface Project {
   progress: number;
   techStack: string[];
   metrics: ProjectMetrics;
+  fixedCosts: CostEntry[];
+  variableCosts: CostEntry[];
 }
 
 export interface Sprint {

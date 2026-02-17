@@ -1,12 +1,13 @@
 ﻿import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, DollarSign, Users, CheckCircle2, Circle, Clock, Trash2 } from 'lucide-react';
+import { ArrowLeft, Calendar, DollarSign, Users, CheckCircle2, Circle, Clock, Trash2, Pencil } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { cn, formatCurrency, formatDate } from '@/lib/utils';
 import { Badge } from '@/components/ui/Badge';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Avatar } from '@/components/ui/Avatar';
 import { DeleteProjectModal } from '@/components/ui/DeleteProjectModal';
+import { EditProjectModal } from '@/components/ui/EditProjectModal';
 import { STATUS_LABELS, STATUS_COLORS, INDUSTRY_LABELS, ROLE_LABELS } from '@/types';
 
 export default function ProjectDetail() {
@@ -14,6 +15,7 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const { projects, clients, developers, sprints, darkMode, deleteProject } = useStore();
   const [showDelete, setShowDelete] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
 
   const project = projects.find((p) => p.id === id);
   if (!project) {
@@ -49,16 +51,29 @@ export default function ProjectDetail() {
             <Badge className={STATUS_COLORS[project.status]}>
               {STATUS_LABELS[project.status]}
             </Badge>
-            <button
-              onClick={() => setShowDelete(true)}
-              className={cn(
-                'ml-auto p-2 rounded-lg transition-colors',
-                darkMode ? 'hover:bg-red-500/20 text-surface-200/40 hover:text-red-400' : 'hover:bg-red-50 text-gray-400 hover:text-red-500'
-              )}
-              title="Eliminar proyecto"
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
+            <div className="ml-auto flex items-center gap-2">
+              <button
+                onClick={() => setShowEdit(true)}
+                className={cn(
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
+                  darkMode ? 'bg-primary-500/15 text-primary-400 hover:bg-primary-500/25' : 'bg-primary-50 text-primary-600 hover:bg-primary-100'
+                )}
+                title="Editar proyecto"
+              >
+                <Pencil className="w-4 h-4" />
+                Editar
+              </button>
+              <button
+                onClick={() => setShowDelete(true)}
+                className={cn(
+                  'p-2 rounded-lg transition-colors',
+                  darkMode ? 'hover:bg-red-500/20 text-surface-200/40 hover:text-red-400' : 'hover:bg-red-50 text-gray-400 hover:text-red-500'
+                )}
+                title="Eliminar proyecto"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
+            </div>
           </div>
           <p className={cn('text-sm mt-1', darkMode ? 'text-surface-200/60' : 'text-gray-500')}>
             {client?.name} &middot; {INDUSTRY_LABELS[project.industry]}
@@ -255,6 +270,55 @@ export default function ProjectDetail() {
           ))}
         </div>
       </div>
+
+      {/* Costos */}
+      {(project.fixedCosts.length > 0 || project.variableCosts.length > 0) && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {project.fixedCosts.length > 0 && (
+            <div className={cn('rounded-xl p-5 border', darkMode ? 'bg-surface-900/80 border-surface-700/50' : 'bg-white border-gray-200')}>
+              <h3 className={cn('text-sm font-semibold mb-4', darkMode ? 'text-white' : 'text-gray-900')}>Costos Fijos</h3>
+              <div className="space-y-2">
+                {project.fixedCosts.map((c) => (
+                  <div key={c.id} className="flex items-center justify-between">
+                    <span className={cn('text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{c.label || '—'}</span>
+                    <span className={cn('text-sm font-medium', darkMode ? 'text-white' : 'text-gray-900')}>{formatCurrency(c.amount)}</span>
+                  </div>
+                ))}
+                <div className={cn('flex items-center justify-between pt-2 mt-2 border-t', darkMode ? 'border-surface-700/50' : 'border-gray-200')}>
+                  <span className={cn('text-xs font-semibold', darkMode ? 'text-surface-200/50' : 'text-gray-500')}>Total</span>
+                  <span className={cn('text-sm font-bold', darkMode ? 'text-primary-400' : 'text-primary-600')}>
+                    {formatCurrency(project.fixedCosts.reduce((s, c) => s + c.amount, 0))}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+          {project.variableCosts.length > 0 && (
+            <div className={cn('rounded-xl p-5 border', darkMode ? 'bg-surface-900/80 border-surface-700/50' : 'bg-white border-gray-200')}>
+              <h3 className={cn('text-sm font-semibold mb-4', darkMode ? 'text-white' : 'text-gray-900')}>Costos Variables</h3>
+              <div className="space-y-2">
+                {project.variableCosts.map((c) => (
+                  <div key={c.id} className="flex items-center justify-between">
+                    <span className={cn('text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{c.label || '—'}</span>
+                    <span className={cn('text-sm font-medium', darkMode ? 'text-white' : 'text-gray-900')}>{formatCurrency(c.amount)}</span>
+                  </div>
+                ))}
+                <div className={cn('flex items-center justify-between pt-2 mt-2 border-t', darkMode ? 'border-surface-700/50' : 'border-gray-200')}>
+                  <span className={cn('text-xs font-semibold', darkMode ? 'text-surface-200/50' : 'text-gray-500')}>Total</span>
+                  <span className={cn('text-sm font-bold', darkMode ? 'text-accent-400' : 'text-accent-600')}>
+                    {formatCurrency(project.variableCosts.reduce((s, c) => s + c.amount, 0))}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Edit modal */}
+      {showEdit && (
+        <EditProjectModal project={project} onClose={() => setShowEdit(false)} />
+      )}
 
       {/* Delete modal */}
       {showDelete && (

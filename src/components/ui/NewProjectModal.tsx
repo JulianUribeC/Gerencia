@@ -107,6 +107,8 @@ export function NewProjectModal({ onClose }: NewProjectModalProps) {
       progress: 0,
       techStack,
       metrics: EMPTY_METRICS,
+      fixedCosts: [],
+      variableCosts: [],
     };
 
     addProject(newProject);
