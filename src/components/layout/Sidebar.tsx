@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
   FolderKanban,
@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Briefcase,
+  LogOut,
 } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { cn } from '@/lib/utils';
@@ -27,7 +28,13 @@ const navItems = [
 ];
 
 export function Sidebar() {
-  const { darkMode, toggleDarkMode, sidebarOpen, toggleSidebar } = useStore();
+  const { darkMode, toggleDarkMode, sidebarOpen, toggleSidebar, logout } = useStore();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login', { replace: true });
+  };
 
   return (
     <aside
@@ -124,6 +131,20 @@ export function Sidebar() {
         >
           {sidebarOpen ? <ChevronLeft className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
           {sidebarOpen && <span className="text-sm font-medium">Colapsar</span>}
+        </button>
+
+        <button
+          onClick={handleLogout}
+          className={cn(
+            'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 w-full',
+            sidebarOpen ? '' : 'justify-center',
+            darkMode
+              ? 'text-red-400/70 hover:bg-red-500/10 hover:text-red-400'
+              : 'text-red-500/70 hover:bg-red-50 hover:text-red-600'
+          )}
+        >
+          <LogOut className="w-5 h-5" />
+          {sidebarOpen && <span className="text-sm font-medium">Cerrar sesión</span>}
         </button>
       </div>
     </aside>

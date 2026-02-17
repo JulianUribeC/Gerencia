@@ -2,6 +2,9 @@ import { create } from 'zustand';
 import type { Client, Developer, Project, Sprint } from '@/types';
 import { clients as mockClients, developers as mockDevs, projects as mockProjects, sprints as mockSprints } from '@/data/mock';
 
+const CREDENTIALS = { username: 'gerenciaTerranova', password: 'Prueba123' };
+const SESSION_KEY = 'terranova_session';
+
 interface AppState {
   projects: Project[];
   clients: Client[];
@@ -9,9 +12,12 @@ interface AppState {
   sprints: Sprint[];
   darkMode: boolean;
   sidebarOpen: boolean;
+  isAuthenticated: boolean;
 
   toggleDarkMode: () => void;
   toggleSidebar: () => void;
+  login: (username: string, password: string) => boolean;
+  logout: () => void;
 
   addProject: (project: Project) => void;
   updateProject: (id: string, data: Partial<Project>) => void;
@@ -30,9 +36,24 @@ export const useStore = create<AppState>((set) => ({
   sprints: mockSprints,
   darkMode: true,
   sidebarOpen: true,
+  isAuthenticated: sessionStorage.getItem(SESSION_KEY) === 'true',
 
   toggleDarkMode: () => set((s) => ({ darkMode: !s.darkMode })),
   toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+
+  login: (username, password) => {
+    if (username === CREDENTIALS.username && password === CREDENTIALS.password) {
+      sessionStorage.setItem(SESSION_KEY, 'true');
+      set({ isAuthenticated: true });
+      return true;
+    }
+    return false;
+  },
+
+  logout: () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    set({ isAuthenticated: false });
+  },
 
   addProject: (project) => set((s) => ({ projects: [...s.projects, project] })),
   updateProject: (id, data) =>
