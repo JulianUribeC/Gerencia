@@ -51,7 +51,7 @@ export const campaigns: Campaign[] = [
     startDate: '2025-02-15', endDate: '2025-05-31',
   },
   {
-    id: 'cm3', name: 'Dev Studio Brand', channel: 'linkedin', status: 'active',
+    id: 'cm3', name: 'Terranova Tech Brand', channel: 'linkedin', status: 'active',
     budget: 4500, spent: 3200, impressions: 45000, clicks: 1350, leads: 180, trials: 0, conversions: 12,
     startDate: '2025-01-01', endDate: '2025-12-31',
   },

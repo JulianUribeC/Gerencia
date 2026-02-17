@@ -51,10 +51,10 @@ export function Sidebar() {
           {sidebarOpen && (
             <div className="animate-fade-in">
               <h1 className={cn('font-bold text-lg', darkMode ? 'text-white' : 'text-gray-900')}>
-                Gerencia
+                Terranova
               </h1>
               <p className={cn('text-xs -mt-1', darkMode ? 'text-surface-200/60' : 'text-gray-500')}>
-                Dev Studio
+                Tech
               </p>
             </div>
           )}
