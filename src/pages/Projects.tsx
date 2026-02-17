@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { List, LayoutGrid, Plus, Search, Trash2 } from 'lucide-react';
 import { useStore } from '@/store/useStore';
@@ -19,7 +19,7 @@ const kanbanColumns: { status: ProjectStatus; label: string; color: string }[] =
   { status: 'completed', label: 'Completados', color: 'border-t-emerald-500' },
 ];
 
-export function Projects() {
+export default function Projects() {
   const { projects, clients, developers, darkMode, deleteProject } = useStore();
   const [view, setView] = useState<'kanban' | 'list'>('kanban');
   const [search, setSearch] = useState('');

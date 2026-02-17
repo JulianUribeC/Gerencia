@@ -1,4 +1,4 @@
-import { FolderKanban, DollarSign, Users, TrendingUp, Clock, Zap } from 'lucide-react';
+﻿import { FolderKanban, DollarSign, Users, TrendingUp, Clock, Zap } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { cn, formatCurrency } from '@/lib/utils';
 import { StatCard } from '@/components/ui/StatCard';
@@ -13,7 +13,7 @@ import { STATUS_LABELS, STATUS_COLORS } from '@/types';
 import { revenueData } from '@/data/mock';
 import { Link } from 'react-router-dom';
 
-export function Dashboard() {
+export default function Dashboard() {
   const { projects, clients, developers, sprints, darkMode } = useStore();
 
   const activeProjects = projects.filter((p) => p.status === 'in_development' || p.status === 'testing');
@@ -48,7 +48,7 @@ export function Dashboard() {
         <StatCard
           title="Equipo"
           value={developers.length}
-          subtitle={`${avgUtilization}% utilización promedio`}
+          subtitle={`${avgUtilization}% utilizaciÃ³n promedio`}
           icon={Users}
           color="purple"
         />

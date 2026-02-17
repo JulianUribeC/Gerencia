@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+﻿import { useState, useMemo } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, Legend, RadarChart, Radar,
@@ -40,7 +40,7 @@ const KEY_METRIC_KEYS = [
   'retentionRate', 'dauMauRatio', 'ltv', 'ltvCacRatio', 'cac', 'startupHealthScore',
 ];
 
-export function Analytics() {
+export default function Analytics() {
   const { projects, darkMode } = useStore();
   const [selectedProject, setSelectedProject] = useState<string>('all');
   const [metricCategory, setMetricCategory] = useState<MetricCategory | 'all'>('all');
@@ -95,7 +95,7 @@ export function Analytics() {
   const profitabilityData = scope
     .filter((p) => p.spent > 0)
     .map((p) => ({
-      name: p.name.length > 18 ? p.name.slice(0, 18) + '…' : p.name,
+      name: p.name.length > 18 ? p.name.slice(0, 18) + 'â€¦' : p.name,
       margin: Math.round(((p.budget - p.spent) / p.budget) * 100),
     }))
     .sort((a, b) => b.margin - a.margin);
@@ -105,9 +105,9 @@ export function Analytics() {
   const radarLabels: Record<string, string> = {
     startupHealthScore: 'Health',
     grossMargin: 'Margen',
-    retentionRate: 'Retención',
+    retentionRate: 'RetenciÃ³n',
     dauMauRatio: 'DAU/MAU',
-    activationRate: 'Activación',
+    activationRate: 'ActivaciÃ³n',
   };
 
   const radarData = singleProject
@@ -162,7 +162,7 @@ export function Analytics() {
       {/* Top Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <StatCard title="Revenue Total" value={formatCurrency(totalBudget)} icon={DollarSign} color="green" />
-        <StatCard title="Tasa de Éxito" value={`${successRate}%`} subtitle={`${completedCount} completados`} icon={Target} color="blue" />
+        <StatCard title="Tasa de Ã‰xito" value={`${successRate}%`} subtitle={`${completedCount} completados`} icon={Target} color="blue" />
         <StatCard title="Progreso" value={`${avgProgress}%`} icon={TrendingUp} color="purple" />
         <StatCard title="Margen Bruto" value={`${totalBudget > 0 ? Math.round(((totalBudget - totalSpent) / totalBudget) * 100) : 0}%`} subtitle={formatCurrency(totalBudget - totalSpent)} icon={Clock} color="orange" />
         <StatCard title="Total Usuarios" value={totalUsers.toLocaleString()} subtitle="Acumulado user_registered" icon={Users} color="pink" />
@@ -211,7 +211,7 @@ export function Analytics() {
         {/* Status pie */}
         <div className={cardClass}>
           <h3 className={headingClass}>
-            {singleProject ? 'Distribución de Presupuesto' : 'Estado de Proyectos'}
+            {singleProject ? 'DistribuciÃ³n de Presupuesto' : 'Estado de Proyectos'}
           </h3>
           {singleProject ? (
             <div className="space-y-4 pt-2">
@@ -389,19 +389,19 @@ export function Analytics() {
                       {formatCurrency(p.spent)}
                     </td>
                     <td className={cn('px-4 py-3 text-sm font-medium', (p.metrics.mrr ?? 0) > 0 ? 'text-emerald-400' : darkMode ? 'text-surface-200/30' : 'text-gray-300')}>
-                      {(p.metrics.mrr ?? 0) > 0 ? formatCurrency(p.metrics.mrr) : '—'}
+                      {(p.metrics.mrr ?? 0) > 0 ? formatCurrency(p.metrics.mrr) : 'â€”'}
                     </td>
                     <td className={cn('px-4 py-3 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>
-                      {(p.metrics.arpu ?? 0) > 0 ? `$${p.metrics.arpu}` : '—'}
+                      {(p.metrics.arpu ?? 0) > 0 ? `$${p.metrics.arpu}` : 'â€”'}
                     </td>
                     <td className={cn('px-4 py-3 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>
-                      {(p.metrics.ltv ?? 0) > 0 ? formatCurrency(p.metrics.ltv) : '—'}
+                      {(p.metrics.ltv ?? 0) > 0 ? formatCurrency(p.metrics.ltv) : 'â€”'}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <div className={cn('w-2 h-2 rounded-full', HEALTH_DOT[healthStatus])} />
                         <span className={cn('text-sm font-semibold', HEALTH_COLORS[healthStatus])}>
-                          {healthScore > 0 ? `${healthScore}/100` : '—'}
+                          {healthScore > 0 ? `${healthScore}/100` : 'â€”'}
                         </span>
                       </div>
                     </td>
@@ -413,13 +413,13 @@ export function Analytics() {
         </div>
       </div>
 
-      {/* ─── Control Tower Metrics Section ─── */}
+      {/* â”€â”€â”€ Control Tower Metrics Section â”€â”€â”€ */}
       <div className={cardClass}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Activity className="w-4 h-4 text-accent-400" />
             <h3 className={cn('text-sm font-semibold', darkMode ? 'text-white' : 'text-gray-900')}>
-              Control Tower — Métricas
+              Control Tower â€” MÃ©tricas
             </h3>
           </div>
           <select
@@ -430,7 +430,7 @@ export function Analytics() {
               darkMode ? 'bg-surface-800 border-surface-700/50 text-white' : 'bg-white border-gray-200 text-gray-900'
             )}
           >
-            <option value="all">Todas las Categorías</option>
+            <option value="all">Todas las CategorÃ­as</option>
             {METRIC_CATEGORIES.map((cat) => (
               <option key={cat} value={cat}>{METRIC_CATEGORY_LABELS[cat]}</option>
             ))}
@@ -453,7 +453,7 @@ export function Analytics() {
                     <div className="flex items-center gap-1 mt-1">
                       <div className={cn('w-1.5 h-1.5 rounded-full', HEALTH_DOT[health])} />
                       <span className={cn('text-[9px] capitalize', HEALTH_COLORS[health])}>
-                        {health === 'healthy' ? 'Saludable' : health === 'warning' ? 'Advertencia' : 'Crítico'}
+                        {health === 'healthy' ? 'Saludable' : health === 'warning' ? 'Advertencia' : 'CrÃ­tico'}
                       </span>
                     </div>
                   </div>
@@ -464,7 +464,7 @@ export function Analytics() {
               <table className="w-full">
                 <thead>
                   <tr className={darkMode ? 'bg-surface-800/50' : 'bg-gray-50'}>
-                    {['Métrica', 'Categoría', 'Valor', 'Fórmula', 'Eventos', 'Estado'].map((h) => (
+                    {['MÃ©trica', 'CategorÃ­a', 'Valor', 'FÃ³rmula', 'Eventos', 'Estado'].map((h) => (
                       <th key={h} className={cn('text-left text-xs font-semibold px-3 py-2', darkMode ? 'text-surface-200/50' : 'text-gray-500')}>{h}</th>
                     ))}
                   </tr>
@@ -490,7 +490,7 @@ export function Analytics() {
                         <td className="px-3 py-2">
                           <div className="flex items-center gap-1.5">
                             <div className={cn('w-2 h-2 rounded-full', HEALTH_DOT[health])} />
-                            <span className={cn('text-[10px] capitalize', HEALTH_COLORS[health])}>{health === 'healthy' ? 'OK' : health === 'warning' ? 'Alerta' : 'Crítico'}</span>
+                            <span className={cn('text-[10px] capitalize', HEALTH_COLORS[health])}>{health === 'healthy' ? 'OK' : health === 'warning' ? 'Alerta' : 'CrÃ­tico'}</span>
                           </div>
                         </td>
                       </tr>
@@ -505,10 +505,10 @@ export function Analytics() {
             <table className="w-full">
               <thead>
                 <tr className={darkMode ? 'bg-surface-800/50' : 'bg-gray-50'}>
-                  <th className={cn('text-left text-xs font-semibold px-3 py-2 sticky left-0 z-10', darkMode ? 'text-surface-200/50 bg-surface-800/50' : 'text-gray-500 bg-gray-50')}>Métrica</th>
+                  <th className={cn('text-left text-xs font-semibold px-3 py-2 sticky left-0 z-10', darkMode ? 'text-surface-200/50 bg-surface-800/50' : 'text-gray-500 bg-gray-50')}>MÃ©trica</th>
                   {projects.map((p) => (
                     <th key={p.id} className={cn('text-center text-xs font-semibold px-2 py-2 min-w-[100px]', darkMode ? 'text-surface-200/60' : 'text-gray-500')}>
-                      <Link to={`/projects/${p.id}`} className="hover:underline">{p.name.length > 14 ? p.name.slice(0, 14) + '…' : p.name}</Link>
+                      <Link to={`/projects/${p.id}`} className="hover:underline">{p.name.length > 14 ? p.name.slice(0, 14) + 'â€¦' : p.name}</Link>
                     </th>
                   ))}
                 </tr>

@@ -1,9 +1,9 @@
-import { Outlet } from 'react-router-dom';
+﻿import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { useStore } from '@/store/useStore';
 import { cn } from '@/lib/utils';
 
-export function Layout() {
+export default function Layout() {
   const { darkMode, sidebarOpen } = useStore();
 
   return (

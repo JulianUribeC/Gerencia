@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+﻿import { useMemo } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, Legend, AreaChart, Area,
@@ -16,7 +16,7 @@ import { Receipt, DollarSign, TrendingDown, Calculator, AlertTriangle, CheckCirc
 
 const COLORS = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#06b6d4', '#f97316', '#84cc16', '#64748b'];
 
-export function Taxes() {
+export default function Taxes() {
   const { darkMode } = useStore();
 
   const currentMonth = taxPayments[taxPayments.length - 1];
@@ -43,7 +43,7 @@ export function Taxes() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Gestión de Impuestos"
+        title="GestiÃ³n de Impuestos"
         subtitle="Obligaciones fiscales, pagos y deducciones"
       />
 
@@ -65,7 +65,7 @@ export function Taxes() {
           <table className="w-full">
             <thead>
               <tr className={cn('border-b', darkMode ? 'border-surface-700/30' : 'border-gray-200')}>
-                {['Obligación', 'Tipo', 'Tasa', 'Frecuencia', 'Día Límite', 'Estado'].map((h) => (
+                {['ObligaciÃ³n', 'Tipo', 'Tasa', 'Frecuencia', 'DÃ­a LÃ­mite', 'Estado'].map((h) => (
                   <th key={h} className={cn('text-left text-xs font-semibold px-4 py-3', darkMode ? 'text-surface-200/50' : 'text-gray-500')}>{h}</th>
                 ))}
               </tr>
@@ -83,7 +83,7 @@ export function Taxes() {
                     {ob.rate > 0 ? `${ob.rate}%` : 'Variable'}
                   </td>
                   <td className={cn('px-4 py-3 text-sm capitalize', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{ob.frequency}</td>
-                  <td className={cn('px-4 py-3 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>Día {ob.dueDay}</td>
+                  <td className={cn('px-4 py-3 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>DÃ­a {ob.dueDay}</td>
                   <td className="px-4 py-3">
                     <Badge className={TAX_STATUS_COLORS[ob.status]}>{TAX_STATUS_LABELS[ob.status]}</Badge>
                   </td>
@@ -138,7 +138,7 @@ export function Taxes() {
       {/* Deductibles Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className={cn(cardClass, 'lg:col-span-1')}>
-          <h3 className={headingClass}>Deducciones por Categoría</h3>
+          <h3 className={headingClass}>Deducciones por CategorÃ­a</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>

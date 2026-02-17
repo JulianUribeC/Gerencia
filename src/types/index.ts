@@ -235,3 +235,6 @@ export const PRIORITY_COLORS: Record<Priority, string> = {
   high: 'bg-orange-500/20 text-orange-400',
   critical: 'bg-red-500/20 text-red-400',
 };
+
+// Exportar tipos de Supabase
+export * from './supabase'

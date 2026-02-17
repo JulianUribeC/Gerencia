@@ -1,4 +1,4 @@
-import { useStore } from '@/store/useStore';
+﻿import { useStore } from '@/store/useStore';
 import { cn, formatCurrency } from '@/lib/utils';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Badge } from '@/components/ui/Badge';
@@ -8,7 +8,7 @@ import { ROLE_LABELS } from '@/types';
 import { Mail, Code2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export function Team() {
+export default function Team() {
   const { developers, projects, darkMode } = useStore();
 
   const getDevProjects = (devId: string) => projects.filter((p) => p.teamIds.includes(devId) && p.status !== 'completed');
@@ -30,7 +30,7 @@ export function Team() {
           { label: 'Full Time', value: developers.length },
           { label: 'Disponibles', value: developers.filter((d) => d.availability > 50).length },
           { label: 'Ocupados', value: developers.filter((d) => d.availability <= 20).length },
-          { label: 'Utilización Promedio', value: `${Math.round(developers.reduce((s, d) => s + (100 - d.availability), 0) / developers.length)}%` },
+          { label: 'UtilizaciÃ³n Promedio', value: `${Math.round(developers.reduce((s, d) => s + (100 - d.availability), 0) / developers.length)}%` },
         ].map((stat) => (
           <div
             key={stat.label}
@@ -96,7 +96,7 @@ export function Team() {
               <div className="mb-4">
                 <div className="flex items-center justify-between mb-1">
                   <span className={cn('text-xs', darkMode ? 'text-surface-200/50' : 'text-gray-500')}>
-                    Utilización
+                    UtilizaciÃ³n
                   </span>
                   <span className={cn(
                     'text-xs font-semibold',

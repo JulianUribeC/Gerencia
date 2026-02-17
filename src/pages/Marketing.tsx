@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, Legend, AreaChart, Area, Cell,
@@ -16,7 +16,7 @@ import { Megaphone, DollarSign, Users, Target, TrendingUp, MousePointerClick, Ey
 
 const FUNNEL_WIDTHS = [100, 85, 65, 50, 38, 24, 20];
 
-export function Marketing() {
+export default function Marketing() {
   const { darkMode } = useStore();
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -49,7 +49,7 @@ export function Marketing() {
     <div className="space-y-6">
       <PageHeader
         title="Marketing"
-        subtitle="Campañas, adquisición y funnel de conversión"
+        subtitle="CampaÃ±as, adquisiciÃ³n y funnel de conversiÃ³n"
       />
 
       {/* Stats */}
@@ -58,12 +58,12 @@ export function Marketing() {
         <StatCard title="Leads Generados" value={totalLeads.toLocaleString()} subtitle={`CTR: ${overallCTR.toFixed(2)}%`} icon={Users} color="green" />
         <StatCard title="Conversiones" value={totalConversions.toLocaleString()} icon={Target} color="purple" />
         <StatCard title="CAC Promedio" value={formatCurrency(Math.round(avgCAC))} icon={MousePointerClick} color="orange" />
-        <StatCard title="Campañas Activas" value={campaigns.filter((c) => c.status === 'active').length.toString()} subtitle={`${campaigns.length} total`} icon={Megaphone} color="pink" />
+        <StatCard title="CampaÃ±as Activas" value={campaigns.filter((c) => c.status === 'active').length.toString()} subtitle={`${campaigns.length} total`} icon={Megaphone} color="pink" />
       </div>
 
       {/* Funnel Visualization */}
       <div className={cardClass}>
-        <h3 className={headingClass}>Funnel de Conversión</h3>
+        <h3 className={headingClass}>Funnel de ConversiÃ³n</h3>
         <div className="flex flex-col items-center gap-1 py-4">
           {funnelData.map((stage, i) => {
             const width = FUNNEL_WIDTHS[i];
@@ -144,7 +144,7 @@ export function Marketing() {
       {/* CAC Trend + Spend */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className={cardClass}>
-          <h3 className={headingClass}>Evolución del CAC</h3>
+          <h3 className={headingClass}>EvoluciÃ³n del CAC</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={monthlyMarketing}>
@@ -214,7 +214,7 @@ export function Marketing() {
       {/* Campaigns Table */}
       <div className={cardClass}>
         <div className="flex items-center justify-between mb-4">
-          <h3 className={headingClass} style={{ marginBottom: 0 }}>Campañas</h3>
+          <h3 className={headingClass} style={{ marginBottom: 0 }}>CampaÃ±as</h3>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
@@ -233,21 +233,21 @@ export function Marketing() {
           <table className="w-full">
             <thead>
               <tr className={cn('border-b', darkMode ? 'border-surface-700/30' : 'border-gray-200')}>
-                {['Campaña', 'Canal', 'Estado', 'Presupuesto', 'Gastado', 'Impresiones', 'Clicks', 'Leads', 'Conversiones', 'CTR'].map((h) => (
+                {['CampaÃ±a', 'Canal', 'Estado', 'Presupuesto', 'Gastado', 'Impresiones', 'Clicks', 'Leads', 'Conversiones', 'CTR'].map((h) => (
                   <th key={h} className={cn('text-left text-xs font-semibold px-3 py-3 whitespace-nowrap', darkMode ? 'text-surface-200/50' : 'text-gray-500')}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {filteredCampaigns.map((c) => {
-                const ctr = c.impressions > 0 ? (c.clicks / c.impressions * 100).toFixed(2) : '—';
+                const ctr = c.impressions > 0 ? (c.clicks / c.impressions * 100).toFixed(2) : 'â€”';
                 const spentPct = c.budget > 0 ? Math.round(c.spent / c.budget * 100) : 0;
                 return (
                   <tr key={c.id} className={cn('border-b', darkMode ? 'border-surface-700/20' : 'border-gray-100')}>
                     <td className={cn('px-3 py-2.5 text-sm font-medium', darkMode ? 'text-white' : 'text-gray-900')}>
                       {c.name}
                       <p className={cn('text-[10px]', darkMode ? 'text-surface-200/40' : 'text-gray-400')}>
-                        {c.startDate} → {c.endDate}
+                        {c.startDate} â†’ {c.endDate}
                       </p>
                     </td>
                     <td className={cn('px-3 py-2.5 text-xs', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{CHANNEL_LABELS[c.channel]}</td>
@@ -265,8 +265,8 @@ export function Marketing() {
                         </span>
                       </div>
                     </td>
-                    <td className={cn('px-3 py-2.5 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{c.impressions > 0 ? c.impressions.toLocaleString() : '—'}</td>
-                    <td className={cn('px-3 py-2.5 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{c.clicks > 0 ? c.clicks.toLocaleString() : '—'}</td>
+                    <td className={cn('px-3 py-2.5 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{c.impressions > 0 ? c.impressions.toLocaleString() : 'â€”'}</td>
+                    <td className={cn('px-3 py-2.5 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{c.clicks > 0 ? c.clicks.toLocaleString() : 'â€”'}</td>
                     <td className={cn('px-3 py-2.5 text-sm font-medium', darkMode ? 'text-white' : 'text-gray-900')}>{c.leads.toLocaleString()}</td>
                     <td className="px-3 py-2.5 text-sm font-bold text-emerald-400">{c.conversions}</td>
                     <td className={cn('px-3 py-2.5 text-sm', darkMode ? 'text-surface-200/70' : 'text-gray-600')}>{ctr}%</td>

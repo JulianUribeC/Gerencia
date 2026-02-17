@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, DollarSign, Users, CheckCircle2, Circle, Clock, Trash2 } from 'lucide-react';
 import { useStore } from '@/store/useStore';
@@ -9,7 +9,7 @@ import { Avatar } from '@/components/ui/Avatar';
 import { DeleteProjectModal } from '@/components/ui/DeleteProjectModal';
 import { STATUS_LABELS, STATUS_COLORS, INDUSTRY_LABELS, ROLE_LABELS } from '@/types';
 
-export function ProjectDetail() {
+export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { projects, clients, developers, sprints, darkMode, deleteProject } = useStore();
@@ -75,7 +75,7 @@ export function ProjectDetail() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { icon: DollarSign, label: 'Presupuesto', value: formatCurrency(project.budget), sub: `${formatCurrency(project.spent)} gastado` },
-          { icon: Calendar, label: 'Duración', value: formatDate(project.startDate), sub: `hasta ${formatDate(project.endDate)}` },
+          { icon: Calendar, label: 'DuraciÃ³n', value: formatDate(project.startDate), sub: `hasta ${formatDate(project.endDate)}` },
           { icon: Users, label: 'Equipo', value: `${team.length} personas`, sub: project.techStack.slice(0, 3).join(', ') },
           { icon: CheckCircle2, label: 'Hitos', value: `${completedMilestones}/${project.milestones.length}`, sub: `${project.progress}% completado` },
         ].map((stat) => (

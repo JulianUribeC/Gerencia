@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useStore } from '@/store/useStore';
 import { cn, formatCurrency } from '@/lib/utils';
 import { PageHeader } from '@/components/ui/PageHeader';
@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 
 const ALL_CATEGORIES = Object.keys(METRIC_CATEGORY_LABELS) as MetricCategory[];
 
-export function MetricsDashboard() {
+export default function MetricsDashboard() {
   const { projects, darkMode } = useStore();
   const [selectedCategory, setSelectedCategory] = useState<MetricCategory | 'all'>('all');
   const [showEvents, setShowEvents] = useState(false);
@@ -40,7 +40,7 @@ export function MetricsDashboard() {
   const radarLabels: Record<string, string> = {
     startupHealthScore: 'Health Score',
     grossMargin: 'Margen Bruto',
-    retentionRate: 'Retención',
+    retentionRate: 'RetenciÃ³n',
     dauMauRatio: 'DAU/MAU',
     growthEfficiency: 'Eficiencia',
   };
@@ -78,7 +78,7 @@ export function MetricsDashboard() {
     <div className="space-y-6">
       <PageHeader
         title="Control Tower"
-        subtitle="Métricas completas basadas en los 9 Eventos Fundamentales"
+        subtitle="MÃ©tricas completas basadas en los 9 Eventos Fundamentales"
         action={
           <button
             onClick={() => setShowEvents(!showEvents)}
@@ -128,7 +128,7 @@ export function MetricsDashboard() {
       <div className="flex items-center gap-4 flex-wrap">
         <div className="flex items-center gap-2">
           <Activity className={cn('w-4 h-4', darkMode ? 'text-primary-400' : 'text-primary-600')} />
-          <span className={cn('text-sm font-medium', darkMode ? 'text-white' : 'text-gray-900')}>Categoría:</span>
+          <span className={cn('text-sm font-medium', darkMode ? 'text-white' : 'text-gray-900')}>CategorÃ­a:</span>
         </div>
         <select
           value={selectedCategory}
@@ -140,13 +140,13 @@ export function MetricsDashboard() {
               : 'bg-white border-gray-200 text-gray-900'
           )}
         >
-          <option value="all">Todas las Categorías</option>
+          <option value="all">Todas las CategorÃ­as</option>
           {ALL_CATEGORIES.map((cat) => (
             <option key={cat} value={cat}>{METRIC_CATEGORY_LABELS[cat]}</option>
           ))}
         </select>
         <span className={cn('text-xs', darkMode ? 'text-surface-200/40' : 'text-gray-400')}>
-          {filteredMetrics.length} métricas
+          {filteredMetrics.length} mÃ©tricas
         </span>
       </div>
 
@@ -160,15 +160,15 @@ export function MetricsDashboard() {
             <thead>
               <tr className={darkMode ? 'bg-surface-900/50' : 'bg-gray-50'}>
                 <th className={cn('text-left text-xs font-semibold px-4 py-3 sticky left-0 z-10', darkMode ? 'text-surface-200/60 bg-surface-900/50' : 'text-gray-500 bg-gray-50')}>
-                  Métrica
+                  MÃ©trica
                 </th>
                 <th className={cn('text-left text-xs font-semibold px-3 py-3', darkMode ? 'text-surface-200/60' : 'text-gray-500')}>
-                  Fórmula
+                  FÃ³rmula
                 </th>
                 {activeProjects.map((p) => (
                   <th key={p.id} className={cn('text-center text-xs font-semibold px-3 py-3 min-w-[110px]', darkMode ? 'text-surface-200/60' : 'text-gray-500')}>
                     <Link to={`/projects/${p.id}`} className="hover:underline">
-                      {p.name.length > 16 ? p.name.slice(0, 16) + '…' : p.name}
+                      {p.name.length > 16 ? p.name.slice(0, 16) + 'â€¦' : p.name}
                     </Link>
                   </th>
                 ))}
@@ -303,7 +303,7 @@ export function MetricsDashboard() {
               darkMode ? 'border-surface-700/30' : 'border-gray-200'
             )}>
               <h4 className={cn('text-xs font-semibold mb-3', darkMode ? 'text-white' : 'text-gray-900')}>
-                Métricas Lado a Lado
+                MÃ©tricas Lado a Lado
               </h4>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {filteredMetrics.slice(0, 12).map((metric) => (
@@ -342,7 +342,7 @@ export function MetricsDashboard() {
 
         {compareProjects.length < 2 && (
           <p className={cn('text-xs text-center py-6', darkMode ? 'text-surface-200/40' : 'text-gray-400')}>
-            Selecciona al menos 2 proyectos para ver la comparación
+            Selecciona al menos 2 proyectos para ver la comparaciÃ³n
           </p>
         )}
       </div>
@@ -354,7 +354,7 @@ export function MetricsDashboard() {
           darkMode ? 'bg-surface-900/80 border-surface-700/50' : 'bg-white border-gray-200'
         )}>
           <h3 className={cn('text-sm font-semibold mb-4', darkMode ? 'text-white' : 'text-gray-900')}>
-            {METRIC_CATEGORY_LABELS[selectedCategory]} — Comparación Visual
+            {METRIC_CATEGORY_LABELS[selectedCategory]} â€” ComparaciÃ³n Visual
           </h3>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">

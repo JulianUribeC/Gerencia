@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Mail, Phone, MapPin, FolderKanban, Search } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { cn, formatCurrency } from '@/lib/utils';
@@ -8,7 +8,7 @@ import { Avatar } from '@/components/ui/Avatar';
 import { INDUSTRY_LABELS } from '@/types';
 import { Link } from 'react-router-dom';
 
-export function Clients() {
+export default function Clients() {
   const { clients, projects, darkMode } = useStore();
   const [search, setSearch] = useState('');
 
