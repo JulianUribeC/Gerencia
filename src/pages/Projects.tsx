@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/Badge';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Avatar } from '@/components/ui/Avatar';
 import { DeleteProjectModal } from '@/components/ui/DeleteProjectModal';
+import { NewProjectModal } from '@/components/ui/NewProjectModal';
 import { STATUS_LABELS, STATUS_COLORS, INDUSTRY_LABELS, PRIORITY_COLORS } from '@/types';
 import type { Project } from '@/types';
 import type { ProjectStatus } from '@/types';
@@ -24,6 +25,7 @@ export default function Projects() {
   const [view, setView] = useState<'kanban' | 'list'>('kanban');
   const [search, setSearch] = useState('');
   const [deleteTarget, setDeleteTarget] = useState<Project | null>(null);
+  const [showNewModal, setShowNewModal] = useState(false);
 
   const filtered = projects.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -83,7 +85,10 @@ export default function Projects() {
                 <List className="w-4 h-4" />
               </button>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-medium transition-colors">
+            <button
+              onClick={() => setShowNewModal(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-medium transition-colors"
+            >
               <Plus className="w-4 h-4" />
               Nuevo
             </button>
@@ -249,6 +254,11 @@ export default function Projects() {
             </tbody>
           </table>
         </div>
+      )}
+
+      {/* New project modal */}
+      {showNewModal && (
+        <NewProjectModal onClose={() => setShowNewModal(false)} />
       )}
 
       {/* Delete modal */}
